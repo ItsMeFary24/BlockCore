@@ -4,7 +4,7 @@ This project is a Minecraft Bedrock Addon that enhances gameplay by providing cu
 
 # Current Version
 - **Module**: 1.0.0-stable
-- **Supported MC Version**: 1.21.30
+- **Supported MC Version**: 1.21.30 
 
 ## Features
 
