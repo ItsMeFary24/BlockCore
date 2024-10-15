@@ -2,6 +2,10 @@
 
 This project is a Minecraft Bedrock Addon that enhances gameplay by providing custom commands, form generation, and various utilities. The codebase is structured to facilitate easy management and extension of commands and forms.
 
+# Current Version
+- **Module**: 1.0.0-stable
+- **Supported MC Version**: 1.21.30
+
 ## Features
 
 - **Custom Commands**: Allows players to execute commands with various functionalities, such as setting and teleporting to homes, viewing help information, and checking the module version.
