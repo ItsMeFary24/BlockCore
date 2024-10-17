@@ -2,14 +2,14 @@
   <img src="https://i.imgur.com/SC3cMPU_d.webp?maxwidth=760&fidelity=grand" alt="Thumbnail">
 
   <p align="center">
-    BlockCore is a Powerfull Script Wrapper of Bedrock Scripting API, This Wrapper will help you keep your code clean and make it easier to interact with the Bedrock Scripting API, while including a lot of Classes, Manager and Utilities for you to use!
+    <strong>BlockCore</strong> is a powerful script wrapper for the Bedrock Scripting API. This wrapper helps you maintain clean code and simplifies interactions with the Bedrock Scripting API. It includes a variety of classes, managers, and utilities for your development needs.
     </br>
     </br>
-    <a href="https://github.com/VoxlDevv/BlockCore">Repository</a>
+    <a href="https://github.com/VoxlDevv/BlockCore">View Repository </a>
     ·
-    <a href="https://github.com/VoxlDevv/BlockCore/issues">Bug Report</a>
+    <a href="https://github.com/VoxlDevv/BlockCore/issues">Report a Bug</a>
     ·
-    <a href="https://github.com/VoxlDevv/BlockCore/issues">Feature Request</a>
+    <a href="https://github.com/VoxlDevv/BlockCore/issues">Request a Feature</a>
 
   </p>
 
