@@ -1,11 +1,18 @@
 {
   "name": "blockcore",
   "version": "1.0.0-stable",
-  "description": "Powerfull Minecraft Bedrock Scripting API Wrapper.",
-  "module": "scripts/BlockCore/_Core/Processors/BCore.exports.js",
-  "type": "module",
   "author": "VoxlDevv",
-  "license": "MIT",
+  "type": "module",
+  "module": "scripts/BlockCore/_Core/Processors/BCore.exports.js",
+  "dependencies": {
+    "@minecraft/server": "1.15.0-beta.1.21.31-stable",
+    "@minecraft/server-gametest": "1.0.0-beta.1.21.31-stable",
+    "@minecraft/server-ui": "1.4.0-beta.1.21.31-stable"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  },
+  "description": "Powerfull Minecraft Bedrock Scripting API Wrapper.",
   "keywords": [
     "Minecraft",
     "Minecraft-Bedrock",
@@ -14,20 +21,10 @@
     "Library",
     "Wrapper"
   ],
+  "license": "MIT",
   "scripts": {
-    "dev:linux": "rm -r scripts/ && bunx tsc -watch",
-    "dev:windows": "rmdir /s /q scripts && bunx tsc -watch",
+    "dev:linux": "rm -r scripts/ && npx tsc -watch",
+    "dev:windows": "rmdir /s /q scripts && npx tsc -watch",
     "build": "tsc"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.5.4"
-  },
-  "dependencies": {
-    "@minecraft/server": "1.15.0-beta.1.21.31-stable",
-    "@minecraft/server-gametest": "1.0.0-beta.1.21.31-stable",
-    "@minecraft/server-ui": "1.4.0-beta.1.21.31-stable"
   }
 }
