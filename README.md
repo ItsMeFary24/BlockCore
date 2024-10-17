@@ -17,8 +17,7 @@
 
 [![MIT License](https://img.shields.io/github/license/VoxlDevv/BlockCore?style=for-the-badge&color=yellow)](LICENSE)
 [![Discord Server](https://img.shields.io/discord/1125432627382460498?color=blue&label=Discord&style=for-the-badge)](https://discord.gg/ffZHPHRBhY)
-[![GitHub Releases](https://img.shields.io/github/downloads/VoxlDevv/BlockCore/total?style=for-the-badge&color=orange)
-](https://github.com/VoxlDevv/BlockCore/releases/latest)
+[![GitHub Releases](https://img.shields.io/github/downloads/VoxlDevv/BlockCore/total?style=for-the-badge&color=orange)](https://github.com/VoxlDevv/BlockCore/releases/latest)
 
 ---
 
