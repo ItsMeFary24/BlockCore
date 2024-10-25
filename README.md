@@ -1,6 +1,11 @@
 <div align="center">
   <img src="https://i.imgur.com/SC3cMPU_d.webp?maxwidth=760&fidelity=grand" alt="Thumbnail">
 
+  ![Module Version](https://img.shields.io/badge/1.0.1-none?color=142336&style=for-the-badge&label=Stable&labelColor=142336)
+  ![Space](https://img.shields.io/badge/·-none?color=142336&style=for-the-badge)
+  ![Minecraft Version](https://img.shields.io/badge/1.21.40-none?color=142336&style=for-the-badge&label=Minecraft&labelColor=142336)
+
+
   <p align="center">
     <strong>BlockCore</strong> is a powerful script wrapper for the Bedrock Scripting API. This wrapper helps you maintain clean code and simplifies interactions with the Bedrock Scripting API. It includes a variety of classes, managers, and utilities for your development needs.
     </br>
@@ -15,9 +20,9 @@
 
 ---
 
-[![MIT License](https://img.shields.io/github/license/VoxlDevv/BlockCore?style=for-the-badge&color=yellow)](LICENSE)
-[![Discord Server](https://img.shields.io/discord/1125432627382460498?color=blue&label=Discord&style=for-the-badge)](https://discord.gg/ffZHPHRBhY)
-[![GitHub Releases](https://img.shields.io/github/downloads/VoxlDevv/BlockCore/total?style=for-the-badge&color=orange)](https://github.com/VoxlDevv/BlockCore/releases/latest)
+[![MIT License](https://img.shields.io/github/license/VoxlDevv/BlockCore?style=for-the-badge&color=2E4F4F&labelColor=2E4F4F)](LICENSE)
+[![Discord Server](https://img.shields.io/discord/1125432627382460498?color=1A4870&label=Discord&labelColor=1A4870&style=for-the-badge)](https://discord.gg/ffZHPHRBhY)
+[![GitHub Releases](https://img.shields.io/github/downloads/VoxlDevv/BlockCore/total?style=for-the-badge&color=FF6363&labelColor=FF6363)](https://github.com/VoxlDevv/BlockCore/releases/latest)
 
 ---
 

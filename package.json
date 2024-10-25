@@ -1,13 +1,13 @@
 {
   "name": "blockcore",
-  "version": "1.0.0-stable",
+  "version": "1.0.1-stable",
   "author": "VoxlDevv",
   "type": "module",
   "module": "scripts/BlockCore/_Core/Processors/BCore.exports.js",
   "dependencies": {
-    "@minecraft/server": "1.15.0-beta.1.21.31-stable",
-    "@minecraft/server-gametest": "1.0.0-beta.1.21.31-stable",
-    "@minecraft/server-ui": "1.4.0-beta.1.21.31-stable"
+    "@minecraft/server": "1.16.0-beta.1.21.42-stable",
+    "@minecraft/server-ui": "1.4.0-beta.1.21.41-stable",
+    "@minecraft/server-gametest": "1.0.0-beta.1.21.41-stable"
   },
   "devDependencies": {
     "typescript": "^5.5.4"
