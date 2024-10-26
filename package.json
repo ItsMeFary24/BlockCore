@@ -1,6 +1,6 @@
 {
   "name": "blockcore",
-  "version": "1.0.1-stable",
+  "version": "1.0.0-1.21.40-stable",
   "author": "VoxlDevv",
   "type": "module",
   "module": "scripts/BlockCore/_Core/Processors/BCore.exports.js",
