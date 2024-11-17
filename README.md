@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://i.imgur.com/SC3cMPU_d.webp?maxwidth=760&fidelity=grand" alt="Thumbnail">
 
-![Module Version](https://img.shields.io/badge/1.0.0-none?color=142336&style=for-the-badge&label=Stable&labelColor=142336)
+![Module Version](https://img.shields.io/badge/1.1.0-none?color=142336&style=for-the-badge&label=Stable&labelColor=142336)
 ![Space](https://img.shields.io/badge/·-none?color=142336&style=for-the-badge)
 ![Minecraft Version](https://img.shields.io/badge/1.21.40-none?color=142336&style=for-the-badge&label=Minecraft&labelColor=142336)
 
