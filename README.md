@@ -1,10 +1,9 @@
 <div align="center">
   <img src="https://i.imgur.com/SC3cMPU_d.webp?maxwidth=760&fidelity=grand" alt="Thumbnail">
 
-  ![Module Version](https://img.shields.io/badge/1.0.0-none?color=142336&style=for-the-badge&label=Stable&labelColor=142336)
-  ![Space](https://img.shields.io/badge/·-none?color=142336&style=for-the-badge)
-  ![Minecraft Version](https://img.shields.io/badge/1.21.40-none?color=142336&style=for-the-badge&label=Minecraft&labelColor=142336)
-
+![Module Version](https://img.shields.io/badge/1.0.0-none?color=142336&style=for-the-badge&label=Stable&labelColor=142336)
+![Space](https://img.shields.io/badge/·-none?color=142336&style=for-the-badge)
+![Minecraft Version](https://img.shields.io/badge/1.21.40-none?color=142336&style=for-the-badge&label=Minecraft&labelColor=142336)
 
   <p align="center">
     <strong>BlockCore</strong> is a powerful script wrapper for the Bedrock Scripting API. This wrapper helps you maintain clean code and simplifies interactions with the Bedrock Scripting API. It includes a variety of classes, managers, and utilities for your development needs.
@@ -38,6 +37,10 @@
 - [Configuration](#configuration)
 - [Commands](#commands)
 - [License](#license)
+
+---
+
+# Looking for documentation? Check out the [documentation](./documentations/list.md) folder.
 
 ---
 
@@ -144,14 +147,9 @@ We highly recommend using `TypeScript` for developing the addon, as `BlockCore` 
 
      For development mode, use:
 
-     - (Linux):
-       ```bash
-       npm run dev:linux
-       ```
-     - (Windows):
-       ```bash
-       npm run dev:windows
-       ```
+     ```bash
+     npm run dev
+     ```
 
    - **Bun**:
 
@@ -161,14 +159,9 @@ We highly recommend using `TypeScript` for developing the addon, as `BlockCore` 
 
      For development mode, use:
 
-     - (Linux):
-       ```bash
-       bun run dev:linux
-       ```
-     - (Windows):
-       ```bash
-       bun run dev:windows
-       ```
+     ```bash
+     bun run dev
+     ```
 
 Make sure you have Node.js and TypeScript installed on your machine to run the above commands successfully.
 
@@ -235,6 +228,8 @@ To create a custom plugin, follow these steps:
    ```
 
    This will read the folder name specified in `plugin_path_name` and execute the corresponding entry file (`Execute.ts`).
+
+For more detailed information and documentation, please refer to the [documentation](./documentation/list.md).
 
 ---
 
