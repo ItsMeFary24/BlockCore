@@ -3,7 +3,7 @@ import { AfterEvents } from "../../Managers/Events/AfterEvents";
 
 const Trigger = (
   _Ev: { subscribe: (callback: unknown) => void },
-  _EvN: string
+  _EvN: string,
 ) => _Ev.subscribe((__cb: unknown) => AfterEvents.emit(_EvN, __cb));
 
 const event_definition = [
@@ -54,9 +54,8 @@ const event_definition = [
   ["world_init", world.afterEvents.worldInitialize],
 ] as const;
 
-let event_idx = 0;
-while (event_idx < event_definition.length) {
+let event_idx = event_definition.length;
+while (event_idx--) {
   const [eventName, worldEvent] = event_definition[event_idx];
   Trigger(worldEvent, eventName);
-  event_idx++;
 }

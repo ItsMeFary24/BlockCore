@@ -82,12 +82,12 @@ export class Formatter {
       compactDuration?: boolean;
       fullDuration?: boolean;
       avoidDuration?: string[];
-    } = {}
+    } = {},
   ): boolean | number | string | null {
     if (typeof value === "string") {
       if (/^\d+$/.test(value)) return Number(value);
       const durations = value.match(
-        /-?\d*\.?\d+\s*(?:years?|yrs?|weeks?|days?|hours?|hrs?|minutes?|mins?|seconds?|secs?|milliseconds?|msecs?|ms|[smhdwy])/gi
+        /-?\d*\.?\d+\s*(?:years?|yrs?|weeks?|days?|hours?|hrs?|minutes?|mins?|seconds?|secs?|milliseconds?|msecs?|ms|[smhdwy])/gi,
       );
       return durations
         ? durations.reduce((a, b) => a + this.toMilliseconds(b), 0)
@@ -148,7 +148,7 @@ export class Formatter {
       compactDuration?: boolean;
       fullDuration?: boolean;
       avoidDuration?: string[];
-    } = {}
+    } = {},
   ): string {
     const absMs = Math.abs(value);
     const duration = [
@@ -164,7 +164,7 @@ export class Formatter {
       .filter(
         (obj) =>
           obj.duration > 0 &&
-          (fullDuration || !avoidDuration.includes(obj.short))
+          (fullDuration || !avoidDuration.includes(obj.short)),
       )
       .map(
         (obj) =>
@@ -174,7 +174,7 @@ export class Formatter {
               : `${Math.floor(obj.duration)} ${obj.long}${
                   obj.duration === 1 ? "" : "s"
                 }`
-          }`
+          }`,
       );
 
     return fullDuration
@@ -188,7 +188,7 @@ export class Formatter {
    * @param { boolean } plain - Whether to use plain formatting or colored.
    * @returns { string } The formatted vector string.
    */
-  static rbgVec3(vec: Vec3D, plain?: boolean) {
+  static rbgVec3(vec: Vec3D, plain?: boolean): string {
     return `${plain || "§c"}${vec.x} ${plain || "§a"}${vec.y} ${plain || "§b"}${
       vec.z
     }`;

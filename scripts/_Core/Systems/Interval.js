@@ -56,4 +56,11 @@ export class Interval {
             this.SetTimeout(resolve, time);
         });
     }
+    /**
+     * Waits for the next tick to occur before continuing execution.
+     * @return A promise that resolves after the next tick.
+     */
+    static async WaitNextTick() {
+        return system.waitTicks(1);
+    }
 }

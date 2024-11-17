@@ -2,6 +2,7 @@ import { Player } from "@minecraft/server";
 
 // Logger
 export type LoggerPrintType = "console" | "game" | "both";
+export type LoggerLevel = "info" | "warn" | "error";
 export interface LoggerProps {
   unit: string;
   location: string;
@@ -90,7 +91,7 @@ export type Form =
         player: Player,
         formResult: {
           [key: number]: string | boolean | number | undefined;
-        }
+        },
       ) => void;
     }
   | {
@@ -122,3 +123,34 @@ export interface CommandRegisterProps {
     [key: number]: ("string" | "boolean" | "number" | "playername")[];
   };
 }
+
+// Exception
+export type ExceptionType =
+  | "SyntaxError"
+  | "ReferenceError"
+  | "TypeError"
+  | "Error";
+
+// Entities
+export type EntityConditionQuery =
+  | "falling"
+  | "in_water"
+  | "climbing"
+  | "on_ground"
+  | "sleeping"
+  | "sneaking"
+  | "swimming"
+  | "sprinting";
+export type PlayerConditionQuery =
+  | "flying"
+  | "emoting"
+  | "falling"
+  | "gliding"
+  | "in_water"
+  | "jumping"
+  | "climbing"
+  | "on_ground"
+  | "sleeping"
+  | "sneaking"
+  | "swimming"
+  | "sprinting";

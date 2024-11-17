@@ -4,11 +4,12 @@ import { BLOCK_CORE_CONFIGURATION } from "../../../config";
 import { CommandException } from "./CommandException";
 import { Collection } from "../../Systems/DataCollection/Collection";
 import { Logger } from "../../Systems/Logger";
-import { CommandRegisterProps } from "../../@types";
 import { CommandRegister } from "./CommandRegister";
+import { PlayerActor } from "../Entities/Player";
+import { type CommandRegisterProps } from "../../BCore.exports";
 
 interface IOnExecuteProperties {
-  sender: Player;
+  sender: PlayerActor;
   getInput: (inputNumber: number) => number | string | boolean | undefined;
   core_config: typeof BLOCK_CORE_CONFIGURATION;
   logger: Logger;
@@ -58,7 +59,7 @@ class BuildCommand {
     return (
       this._registered_properties.get(cmd) ||
       this._registered_properties.find((val) =>
-        val.register.aliases.includes(cmd)
+        val.register.aliases.includes(cmd),
       )
     );
   }
@@ -72,7 +73,7 @@ class BuildCommand {
 
     const prefix_matcher =
       BLOCK_CORE_CONFIGURATION.custom_command_prefixes.find((prefix) =>
-        incoming_message.startsWith(prefix)
+        incoming_message.startsWith(prefix),
       );
 
     if (!BLOCK_CORE_CONFIGURATION.enable_custom_command || !prefix_matcher)
@@ -99,18 +100,18 @@ class BuildCommand {
       !command_properties ||
       (command_properties.register.perms.length > 0 &&
         !command_properties.register.perms.every((perms) =>
-          packet_sender.getTags().includes(perms)
+          packet_sender.getTags().includes(perms),
         ))
     )
       return CommandException.Invalid(packet_sender, command_name);
 
     command_properties.onExecute({
-      sender: packet_sender,
+      sender: new PlayerActor(packet_sender),
       getInput: (inputNumber: number) =>
         this.parse_input(
           get_args,
           command_properties.register.inputs,
-          inputNumber
+          inputNumber,
         ),
       core_config: BLOCK_CORE_CONFIGURATION,
       logger: new Logger(BLOCK_CORE_CONFIGURATION.development_mode.debug_level),
@@ -131,7 +132,7 @@ class BuildCommand {
     command_input: {
       [key: number]: ("string" | "boolean" | "number" | "playername")[];
     },
-    input_index: number
+    input_index: number,
   ): undefined | boolean | string | number {
     const inputValue = command_args[input_index];
     if (
@@ -189,8 +190,7 @@ class BuildCommand {
     register: CommandRegister;
     onExecute: (options: IOnExecuteProperties) => void;
   }) {
-    const registraion =
-      options.register._GenerateResult() as CommandRegisterProps;
+    const registraion = options.register.get as CommandRegisterProps;
 
     if (registraion.name.length <= 0) {
       Logger.DevMode()?.Danger({

@@ -7,7 +7,9 @@ CommandBuilder.Build({
     .setDescription("The version of the module.")
     .setCategory("Information"),
   onExecute: ({ sender: player }) =>
-    player.sendMessage(
-      `§a[§eBlockCore§a] You're currently using the module version: §e${MODULE_VERSION}`
-    ),
+    player
+      .unwrap()
+      .sendMessage(
+        `§a[§eBlockCore§a] You're currently using the module version: §e${MODULE_VERSION}`,
+      ),
 });

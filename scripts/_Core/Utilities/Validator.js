@@ -1,3 +1,5 @@
+import { Vec3D } from "../Systems/Vector/Vector3D";
+import { Vec2D } from "../Systems/Vector/Vector2D";
 export class Validator {
     /**
      * Determines whether the input value is a string.

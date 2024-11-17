@@ -1,7 +1,7 @@
 import type {
   SystemEventProperties,
   SystemEventCallback,
-} from "../../@types/Events/System";
+} from "../../BCore.exports";
 
 /**
  * Represents a event emitter that manages system events.
@@ -54,7 +54,7 @@ class SystemEventEmitter {
    */
   on<T extends keyof SystemEventProperties>(
     name: T,
-    callback: (arg: SystemEventCallback<T>) => void
+    callback: (arg: SystemEventCallback<T>) => void,
   ) {
     this._Add(name, callback);
   }

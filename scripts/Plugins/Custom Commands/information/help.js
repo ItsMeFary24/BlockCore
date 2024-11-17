@@ -12,7 +12,8 @@ CommandBuilder.Build({
     })
         .setUsage(["help <page: number | string>"])
         .setExample(["help ping", "help 1"]),
-    onExecute: async ({ sender: player, _registered_properties: reg_property, _is_command_registered: is_registered, getInput, }) => {
+    onExecute: async ({ sender, _registered_properties: reg_property, _is_command_registered: is_registered, getInput, }) => {
+        const player = sender.unwrap();
         const input_command = getInput(0) || 1;
         const command_prefix = BLOCK_CORE_CONFIGURATION.custom_command_prefixes[0];
         const check_perms = (perms, cmd_perms) => cmd_perms.length === 0 || cmd_perms.some((perm) => perms.includes(perm));

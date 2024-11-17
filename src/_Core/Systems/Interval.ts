@@ -21,7 +21,7 @@ export class Interval {
   static SetInterval(callbackfn: () => void, interval: number = 0): number {
     const tickId = system.runInterval(
       callbackfn,
-      TickConverter.MsToTick(interval)
+      TickConverter.MsToTick(interval),
     );
     return tickId;
   }
@@ -35,7 +35,7 @@ export class Interval {
   static SetTimeout(callbackfn: () => void, timeout: number = 0): number {
     const tickId = system.runTimeout(
       callbackfn,
-      TickConverter.MsToTick(timeout)
+      TickConverter.MsToTick(timeout),
     );
     return tickId;
   }
@@ -65,9 +65,20 @@ export class Interval {
    */
   static async Sleep(time: number): Promise<unknown> {
     return new Promise(
-      (resolve: (value?: unknown) => void, reject: (reason?: unknown) => void) => {
+      (
+        resolve: (value?: unknown) => void,
+        reject: (reason?: unknown) => void,
+      ) => {
         this.SetTimeout(resolve, time);
-      }
+      },
     );
+  }
+
+  /**
+   * Waits for the next tick to occur before continuing execution.
+   * @return A promise that resolves after the next tick.
+   */
+  static async WaitNextTick(): Promise<void> {
+    return system.waitTicks(1);
   }
 }

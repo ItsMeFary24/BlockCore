@@ -1,8 +1,12 @@
+import { Player, ChatSendBeforeEvent } from "@minecraft/server";
 import { BeforeEvents } from "../Events/BeforeEvents";
 import { BLOCK_CORE_CONFIGURATION } from "../../../config";
 import { CommandException } from "./CommandException";
 import { Collection } from "../../Systems/DataCollection/Collection";
 import { Logger } from "../../Systems/Logger";
+import { CommandRegister } from "./CommandRegister";
+import { PlayerActor } from "../Entities/Player";
+import {} from "../../BCore.exports";
 /**
  * Represents a command builder that manages custom commands.
  */
@@ -51,7 +55,7 @@ class BuildCommand {
                 !command_properties.register.perms.every((perms) => packet_sender.getTags().includes(perms))))
             return CommandException.Invalid(packet_sender, command_name);
         command_properties.onExecute({
-            sender: packet_sender,
+            sender: new PlayerActor(packet_sender),
             getInput: (inputNumber) => this.parse_input(get_args, command_properties.register.inputs, inputNumber),
             core_config: BLOCK_CORE_CONFIGURATION,
             logger: new Logger(BLOCK_CORE_CONFIGURATION.development_mode.debug_level),
@@ -110,7 +114,7 @@ class BuildCommand {
      * @param { Function } options.onExecute - The function to execute when the command is called.
      */
     Build(options) {
-        const registraion = options.register._GenerateResult();
+        const registraion = options.register.get;
         if (registraion.name.length <= 0) {
             Logger.DevMode()?.Danger({
                 unit: "CommandRegister",

@@ -1,3 +1,4 @@
+import {} from "../../BCore.exports";
 /**
  * A class that represents a chunk defined by a start and end position.
  */

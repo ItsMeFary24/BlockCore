@@ -1,3 +1,4 @@
+import {} from "../../BCore.exports";
 /**
  * Represents a command register that holds command properties.
  */
@@ -91,7 +92,7 @@ export class CommandRegister {
         Object.assign(this._register.inputs, inputs);
         return this;
     }
-    _GenerateResult() {
+    get get() {
         return this._register;
     }
 }

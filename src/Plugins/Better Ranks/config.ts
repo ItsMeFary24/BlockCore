@@ -1,17 +1,7 @@
 export const RANK_CONFIG: {
   defaultRank: string;
-  AbovePlayerDisplay: {
-    [key: string]: {
-      format: string;
-    };
-  };
-  RankList: {
-    [key: string]: {
-      name: string;
-      format: string;
-      weight: number;
-    };
-  };
+  AbovePlayerDisplay: Record<string, { format: string }>;
+  RankList: Record<string, { name: string; format: string; weight: number }>;
 } = {
   /**
    * When player does not have any rank, it will called RankList.member rank as the default

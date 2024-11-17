@@ -1,7 +1,7 @@
 import type {
   BeforeEventProperties,
   BeforeEventCallback,
-} from "../../@types/Events/Before";
+} from "../../BCore.exports";
 
 /**
  * Represents a event emitter that manages before events.
@@ -54,7 +54,7 @@ class BeforeEventEmitter {
    */
   on<T extends keyof BeforeEventProperties>(
     name: T,
-    callback: (arg: BeforeEventCallback<T>) => void
+    callback: (arg: BeforeEventCallback<T>) => void,
   ) {
     this._Add(name, callback);
   }

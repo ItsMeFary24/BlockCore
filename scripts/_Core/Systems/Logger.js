@@ -16,11 +16,36 @@ export class Logger {
      * Main logging function that handles the formatting and output of log messages.
      * @param { IMainLogger } logger - An object containing the details of the log message.
      */
-    Main(logger) {
+    Main(logger, level) {
+        const message_log = `${logger.status.color || "§f"} ${logger.status.content} §e[${logger.unit.color || "§7"}${logger.unit.content}::${logger.location.color || "§7"}${logger.location.content}§e] §f-> ${logger.message}${logger.message.endsWith(".") ? "" : "."}`;
+        const log_level = {
+            info: console.info,
+            warn: console.warn,
+            error: console.warn,
+        }[level];
         if (this._printType === "console" || this._printType === "both")
-            console.warn(`${logger.status.content} [${logger.unit.content}::${logger.location.content}] : ${logger.message.endsWith(".") ? logger.message : `${logger.message}.`}`);
+            log_level(message_log.replaceAll(/§.{1}/g, ""));
         if (this._printType === "game" || this._printType === "both")
-            world.sendMessage(`${logger.status.color || "§f"} ${logger.status.content} §e[${logger.unit.color || "§7"}${logger.unit.content}::${logger.location.color || "§7"}${logger.location.content}§e] §f-> ${logger.message.endsWith(".") ? logger.message : `${logger.message}.`}`);
+            world.sendMessage(message_log);
+    }
+    /**
+     * Logs a success message.
+     * @param { LoggerProps } logger - An object containing the unit, location, and message details.
+     */
+    Success(logger) {
+        this.Main({
+            status: {
+                color: "§a",
+                content: "SUCCESS",
+            },
+            unit: {
+                content: logger.unit,
+            },
+            location: {
+                content: logger.location,
+            },
+            message: logger.message,
+        }, "info");
     }
     /**
      * Logs a danger message.
@@ -39,7 +64,7 @@ export class Logger {
                 content: logger.location,
             },
             message: logger.message,
-        });
+        }, "error");
     }
     /**
      * Logs a warning message.
@@ -58,7 +83,7 @@ export class Logger {
                 content: logger.location,
             },
             message: logger.message,
-        });
+        }, "warn");
     }
     /**
      * Logs an informational message.
@@ -77,7 +102,7 @@ export class Logger {
                 content: logger.location,
             },
             message: logger.message,
-        });
+        }, "info");
     }
     /**
      * Creates a logger instance in development mode.

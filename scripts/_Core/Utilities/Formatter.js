@@ -1,3 +1,4 @@
+import { Vec3D } from "../BCore.exports";
 /**
  * A utility class for formatting various types of data, including text and durations.
  */

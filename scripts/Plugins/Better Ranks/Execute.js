@@ -5,7 +5,7 @@ import { BLOCK_CORE_CONFIGURATION } from "../../config";
 const rankConfig = RANK_CONFIG;
 BeforeEvents.on("msg_send", (params) => {
     const prefix_matcher = BLOCK_CORE_CONFIGURATION.custom_command_prefixes.find((prefix) => params.message.startsWith(prefix));
-    if (prefix_matcher)
+    if (prefix_matcher && BLOCK_CORE_CONFIGURATION.enable_custom_command)
         return;
     params.cancel = true;
     const tags = params.sender

@@ -1,6 +1,6 @@
-import { Vector3, Vector2 } from "@minecraft/server";
 import { Vec3D } from "../Systems/Vector/Vector3D";
 import { Vec2D } from "../Systems/Vector/Vector2D";
+import type { Vector3, Vector2 } from "@minecraft/server";
 
 export class Validator {
   /**

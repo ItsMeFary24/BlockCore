@@ -2,3 +2,5 @@ node_modules
 **/*/test.ts
 **/*/test.js
 bun.lockb
+*.txt
+bench.ts

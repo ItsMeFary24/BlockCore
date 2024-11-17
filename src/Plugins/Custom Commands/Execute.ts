@@ -13,4 +13,21 @@ const command_entry = [
 ];
 
 // Parallel loader
-Promise.all(command_entry.map(async (path) => await import(path)));
+const promises: Record<string, Promise<number | void>> = {};
+
+(async (): Promise<() => undefined> => {
+  let promise_idx = command_entry.length;
+  while (promise_idx--) {
+    const path = command_entry[promise_idx];
+    promises[path] = import(path);
+  }
+
+  await Promise.all(Object.values(promises));
+
+  // Clean up references
+  command_entry.length = 0;
+  let key_idx = Object.keys(promises).length;
+  while (key_idx--) delete promises[Object.keys(promises)[key_idx]];
+
+  return () => undefined;
+})();

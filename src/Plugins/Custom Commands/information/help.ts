@@ -16,11 +16,12 @@ CommandBuilder.Build({
     .setExample(["help ping", "help 1"]),
 
   onExecute: async ({
-    sender: player,
+    sender,
     _registered_properties: reg_property,
     _is_command_registered: is_registered,
     getInput,
   }) => {
+    const player = sender.unwrap();
     const input_command = getInput(0) || 1;
     const command_prefix = BLOCK_CORE_CONFIGURATION.custom_command_prefixes[0];
 
@@ -34,7 +35,7 @@ CommandBuilder.Build({
         !check_perms(player.getTags(), command_exist.register.perms || []))
     ) {
       player.sendMessage(
-        `§cCommands with name or alias §f${input_command} §cdoes not exist.`
+        `§cCommands with name or alias §f${input_command} §cdoes not exist.`,
       );
       return;
     }
@@ -60,13 +61,13 @@ CommandBuilder.Build({
           registered.example.length
             ? registered.example.join("\n - ")
             : "No example found."
-        }\n§a-------------------------`
+        }\n§a-------------------------`,
       );
       return;
     }
 
     const registered = [...reg_property.values()].filter((reg) =>
-      check_perms(player.getTags(), reg.register.perms || [])
+      check_perms(player.getTags(), reg.register.perms || []),
     );
     const max_page: number = Math.ceil(registered.length / PAGE_LIMIT);
     const target_page =
@@ -77,7 +78,7 @@ CommandBuilder.Build({
     const end_page_index = target_page * PAGE_LIMIT;
     const panginated_cmds = registered.slice(start_page_index, end_page_index);
     const sorted_cmds = panginated_cmds.sort((a, b) =>
-      a.register.category.localeCompare(b.register.category)
+      a.register.category.localeCompare(b.register.category),
     );
 
     let messages: string = `§a--- Showing help page ${target_page} of ${max_page} [${command_prefix}help <page>] ---\n`;

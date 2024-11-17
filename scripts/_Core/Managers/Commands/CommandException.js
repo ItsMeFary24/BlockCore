@@ -1,3 +1,4 @@
+import { Player } from "@minecraft/server";
 /**
  * Provides static methods for handling command exceptions.
  */

@@ -1,4 +1,4 @@
-import { ChunkerPos } from "../../@types";
+import { type ChunkerPos } from "../../BCore.exports";
 
 /**
  * A class that represents a chunk defined by a start and end position.

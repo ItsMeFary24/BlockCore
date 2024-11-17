@@ -1,7 +1,7 @@
 import type {
   AfterEventProperties,
   AfterEventCallback,
-} from "../../@types/Events/After";
+} from "../../BCore.exports";
 
 /**
  * Represents a event emitter that manages after events.
@@ -29,7 +29,7 @@ class AfterEventEmitter {
     if (!this._Event[name]) this._Event[name] = [];
 
     const exists = this._Event[name].some(
-      (listener) => listener.callback === callback
+      (listener) => listener.callback === callback,
     );
     if (!exists) this._Event[name].push({ callback });
   }
@@ -57,7 +57,7 @@ class AfterEventEmitter {
    */
   on<T extends keyof AfterEventProperties>(
     name: T,
-    callback: (arg: AfterEventCallback<T>) => void
+    callback: (arg: AfterEventCallback<T>) => void,
   ) {
     this._Add(name, callback);
   }

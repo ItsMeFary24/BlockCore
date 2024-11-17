@@ -1,6 +1,10 @@
 import { world } from "@minecraft/server";
-import { type LoggerPrintType, LoggerProps } from "../@types";
 import { BLOCK_CORE_CONFIGURATION } from "../../config";
+import type {
+  LoggerPrintType,
+  LoggerLevel,
+  LoggerProps,
+} from "../BCore.exports";
 
 interface IMainLogger {
   status: {
@@ -36,26 +40,46 @@ export class Logger {
    * Main logging function that handles the formatting and output of log messages.
    * @param { IMainLogger } logger - An object containing the details of the log message.
    */
-  private Main(logger: IMainLogger) {
+  private Main(logger: IMainLogger, level: LoggerLevel) {
+    const message_log = `${logger.status.color || "§f"} ${logger.status.content} §e[${
+      logger.unit.color || "§7"
+    }${logger.unit.content}::${logger.location.color || "§7"}${
+      logger.location.content
+    }§e] §f-> ${logger.message}${logger.message.endsWith(".") ? "" : "."}`;
+    const log_level = {
+      info: console.info,
+      warn: console.warn,
+      error: console.warn,
+    }[level];
+
     if (this._printType === "console" || this._printType === "both")
-      console.warn(
-        `${logger.status.content} [${logger.unit.content}::${
-          logger.location.content
-        }] : ${
-          logger.message.endsWith(".") ? logger.message : `${logger.message}.`
-        }`
-      );
+      log_level(message_log.replaceAll(/§.{1}/g, ""));
 
     if (this._printType === "game" || this._printType === "both")
-      world.sendMessage(
-        `${logger.status.color || "§f"} ${logger.status.content} §e[${
-          logger.unit.color || "§7"
-        }${logger.unit.content}::${logger.location.color || "§7"}${
-          logger.location.content
-        }§e] §f-> ${
-          logger.message.endsWith(".") ? logger.message : `${logger.message}.`
-        }`
-      );
+      world.sendMessage(message_log);
+  }
+
+  /**
+   * Logs a success message.
+   * @param { LoggerProps } logger - An object containing the unit, location, and message details.
+   */
+  Success(logger: LoggerProps) {
+    this.Main(
+      {
+        status: {
+          color: "§a",
+          content: "SUCCESS",
+        },
+        unit: {
+          content: logger.unit,
+        },
+        location: {
+          content: logger.location,
+        },
+        message: logger.message,
+      },
+      "info",
+    );
   }
 
   /**
@@ -63,19 +87,22 @@ export class Logger {
    * @param { LoggerProps } logger - An object containing the unit, location, and message details.
    */
   Danger(logger: LoggerProps) {
-    this.Main({
-      status: {
-        color: "§c",
-        content: "DANGER",
+    this.Main(
+      {
+        status: {
+          color: "§c",
+          content: "DANGER",
+        },
+        unit: {
+          content: logger.unit,
+        },
+        location: {
+          content: logger.location,
+        },
+        message: logger.message,
       },
-      unit: {
-        content: logger.unit,
-      },
-      location: {
-        content: logger.location,
-      },
-      message: logger.message,
-    });
+      "error",
+    );
   }
 
   /**
@@ -83,19 +110,22 @@ export class Logger {
    * @param { LoggerProps } logger - An object containing the unit, location, and message details.
    */
   Warning(logger: LoggerProps) {
-    this.Main({
-      status: {
-        color: "§e",
-        content: "WARNING",
+    this.Main(
+      {
+        status: {
+          color: "§e",
+          content: "WARNING",
+        },
+        unit: {
+          content: logger.unit,
+        },
+        location: {
+          content: logger.location,
+        },
+        message: logger.message,
       },
-      unit: {
-        content: logger.unit,
-      },
-      location: {
-        content: logger.location,
-      },
-      message: logger.message,
-    });
+      "warn",
+    );
   }
 
   /**
@@ -103,19 +133,22 @@ export class Logger {
    * @param { LoggerProps } logger - An object containing the unit, location, and message details.
    */
   Info(logger: LoggerProps) {
-    this.Main({
-      status: {
-        color: "§b",
-        content: "INFO",
+    this.Main(
+      {
+        status: {
+          color: "§b",
+          content: "INFO",
+        },
+        unit: {
+          content: logger.unit,
+        },
+        location: {
+          content: logger.location,
+        },
+        message: logger.message,
       },
-      unit: {
-        content: logger.unit,
-      },
-      location: {
-        content: logger.location,
-      },
-      message: logger.message,
-    });
+      "info",
+    );
   }
 
   /**

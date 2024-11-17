@@ -1,4 +1,4 @@
-import { ChunkerPosXZ } from "../../@types";
+import { type ChunkerPosXZ } from "../../BCore.exports";
 
 /**
  * A class that represents a chunk defined by a start and end position in the XZ plane.

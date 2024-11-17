@@ -5,9 +5,8 @@ const event_definition = [
     ["script_evt_recv", system.afterEvents.scriptEventReceive],
     ["watchdog_term", system.beforeEvents.watchdogTerminate],
 ];
-let event_idx = 0;
-while (event_idx < event_definition.length) {
+let event_idx = event_definition.length;
+while (event_idx--) {
     const [eventName, worldEvent] = event_definition[event_idx];
     Trigger(worldEvent, eventName);
-    event_idx++;
 }

@@ -4,7 +4,7 @@
     "name": "BlockCore",
     "description": "Powerfull Minecraft Bedrock API Wrapper.",
     "uuid": "d3b0a8e4-6b8e-4e3b-9f1e-3f8b8f8b8f8b",
-    "version": [1, 0, 0],
+    "version": [1, 1, 0],
     "min_engine_version": [1, 21, 40]
   },
   "modules": [
@@ -13,7 +13,7 @@
       "language": "javascript",
       "uuid": "a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
       "entry": "scripts/_Core/Processors/ProcessorLoader.js",
-      "version": [1, 0, 0]
+      "version": [1, 1, 0]
     }
   ],
   "dependencies": [
@@ -34,7 +34,7 @@
     "Author": "VoxlDev",
     "YouTube": "https://youtube.com/@VoxlDevID",
     "Module": {
-      "CurrentVersion": "1.0.0-stable",
+      "CurrentVersion": "1.1.0-stable",
       "Repository": "https://github.com/VoxlDevv/BlockCore"
     }
   }

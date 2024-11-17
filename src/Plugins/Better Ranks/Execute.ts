@@ -16,10 +16,10 @@ const rankConfig: {
 
 BeforeEvents.on("msg_send", (params) => {
   const prefix_matcher = BLOCK_CORE_CONFIGURATION.custom_command_prefixes.find(
-    (prefix) => params.message.startsWith(prefix)
+    (prefix) => params.message.startsWith(prefix),
   );
 
-  if (prefix_matcher) return;
+  if (prefix_matcher && BLOCK_CORE_CONFIGURATION.enable_custom_command) return;
 
   params.cancel = true;
 
@@ -37,7 +37,7 @@ BeforeEvents.on("msg_send", (params) => {
     highestRank.format
       .replaceAll("{rank_name}", highestRank.name)
       .replaceAll("{user_name}", params.sender.name)
-      .replaceAll("{msg}", params.message)
+      .replaceAll("{msg}", params.message),
   );
 });
 

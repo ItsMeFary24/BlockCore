@@ -1,6 +1,6 @@
 {
   "name": "blockcore",
-  "version": "1.0.0-1.21.40-stable",
+  "version": "1.1.0-1.21.40-stable",
   "author": "VoxlDevv",
   "type": "module",
   "module": "scripts/BlockCore/_Core/Processors/BCore.exports.js",
@@ -23,8 +23,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "dev:linux": "rm -r scripts/ && npx tsc -watch",
-    "dev:windows": "rmdir /s /q scripts && npx tsc -watch",
+    "dev": "./transpile.sh",
     "build": "tsc"
   }
 }

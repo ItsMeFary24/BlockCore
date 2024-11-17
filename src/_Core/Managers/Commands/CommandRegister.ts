@@ -1,4 +1,4 @@
-import { CommandRegisterProps } from "../../@types";
+import { type CommandRegisterProps } from "../../BCore.exports";
 
 /**
  * Represents a command register that holds command properties.
@@ -105,7 +105,7 @@ export class CommandRegister {
     return this;
   }
 
-  _GenerateResult() {
+  get get() {
     return this._register;
   }
 }

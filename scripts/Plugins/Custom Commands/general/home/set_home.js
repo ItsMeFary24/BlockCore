@@ -6,8 +6,10 @@ CommandBuilder.Build({
         .setDescription("Set home to your current location.")
         .setInputs({
         0: ["string"],
-    }),
-    onExecute: ({ sender: player, getInput }) => {
+    })
+        .setUsage(["sethome <home_name: string>"]),
+    onExecute: ({ sender, getInput }) => {
+        const player = sender.unwrap();
         const inputted_name = getInput(0);
         const home_db = new DynamicDB(player);
         const sethome_limit = player

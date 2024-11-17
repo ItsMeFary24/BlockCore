@@ -13,8 +13,10 @@ export class World {
   }
 
   /**
-   * Closes the world. This method will cause an infinite loop and should not be called.
-   * @deprecated This method is not functional and will result in a stack overflow.
+   * @warning DANGEROUS - This method will cause an infinite loop and crash the game
+   * @unsafe This method intentionally creates an infinite recursion
+   * @description Attempts to close the world by creating an infinite loop. This is extremely dangerous and will crash the game.
+   * Do not use this method unless you absolutely know what you're doing.
    */
   static close() {
     while (true) this.close();

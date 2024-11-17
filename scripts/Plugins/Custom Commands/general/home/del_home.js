@@ -5,8 +5,10 @@ CommandBuilder.Build({
         .setDescription("Delete existing home.")
         .setInputs({
         0: ["string"],
-    }),
-    onExecute: async ({ sender: player, getInput }) => {
+    })
+        .setUsage(["delhome <home_name: string>"]),
+    onExecute: async ({ sender, getInput }) => {
+        const player = sender.unwrap();
         const inputted_name = getInput(0);
         const home_db = new DynamicDB(player);
         const existing_home = home_db.keys.filter((home) => home.startsWith("home-"));

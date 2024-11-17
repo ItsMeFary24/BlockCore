@@ -17,9 +17,8 @@ const event_definition = [
     ["weather_chg", world.beforeEvents.weatherChange],
     ["world_init", world.beforeEvents.worldInitialize],
 ];
-let event_idx = 0;
-while (event_idx < event_definition.length) {
+let event_idx = event_definition.length;
+while (event_idx--) {
     const [eventName, worldEvent] = event_definition[event_idx];
     Trigger(worldEvent, eventName);
-    event_idx++;
 }

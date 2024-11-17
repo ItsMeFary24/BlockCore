@@ -1,12 +1,14 @@
-import { CommandBuilder, CommandRegister, DynamicDB, Vec3D, } from "../../../block-core";
+import { CommandBuilder, CommandRegister, DynamicDB, Interval, Vec3D, } from "../../../block-core";
 CommandBuilder.Build({
     register: new CommandRegister()
         .setName("home")
         .setDescription("Teleport to home.")
         .setInputs({
         0: ["string"],
-    }),
-    onExecute: async ({ sender: player, getInput }) => {
+    })
+        .setUsage(["home <home_name: string>"]),
+    onExecute: async ({ sender, getInput }) => {
+        const player = sender.unwrap();
         const inputted_name = getInput(0);
         const home_db = new DynamicDB(player);
         const existing_home = home_db.keys.filter((home) => home.startsWith("home-"));
@@ -25,7 +27,7 @@ CommandBuilder.Build({
             return;
         }
         const home_data = home_db.get(`home-${inputted_name}`);
-        await null;
+        await Interval.WaitNextTick();
         player.teleport(new Vec3D(home_data?.pos.x, home_data?.pos.y, home_data?.pos.z), { checkForBlocks: true });
         player.sendMessage(`§a[§eHome§a] Teleported to home §e${inputted_name}§a.`);
     },

@@ -7,47 +7,47 @@ import {
 import { Player } from "@minecraft/server";
 import { World } from "../../Managers/World";
 import { Logger } from "../../Systems/Logger";
-import {
-  type Form,
+import { Interval } from "../../Systems/Interval";
+import type {
+  Form,
   ActionFormContent,
   MessageFormContent,
   ModalFormContent,
-} from "../../@types";
+} from "../../BCore.exports";
 
 /**
  * A class that generates and manages different types of forms for players.
  */
 export class FormGenerator {
-  private formData?: Form[];
+  private form_data?: Form[];
 
   /**
    * Sets the form data for the generator.
    * @param { Form[] } form - An array of Form objects to be registered.
    */
   setData(form: Form[]) {
-    const idMap: { [key: number]: boolean } = {};
-    const duplicateIds: number[] = [];
+    const id_map: { [key: number]: boolean } = {};
+    const duplicated_id: number[] = [];
 
-    let check_idx = 0;
-    while (check_idx < form.length) {
-      const f = form[check_idx];
+    let check_idx = form.length;
+    while (check_idx--) {
+      const frm = form[check_idx];
 
-      if (idMap[f.id]) duplicateIds.push(f.id);
-      else idMap[f.id] = true;
-
-      check_idx++;
+      if (id_map[frm.id]) duplicated_id.push(frm.id);
+      else id_map[frm.id] = true;
     }
 
-    if (duplicateIds.length > 0) {
+    if (duplicated_id.length > 0) {
       Logger.DevMode()?.Danger({
         unit: "FormGenerator",
         location: "setData",
-        message: `Multiple IDs found: ${duplicateIds.join(", ")}`,
+        message: `Multiple IDs found: ${duplicated_id.join(", ")}`,
       });
       return;
     }
 
-    this.formData = form;
+    this.form_data = form;
+    return this;
   }
 
   /**
@@ -57,44 +57,44 @@ export class FormGenerator {
    * @param { boolean } [waitUntilCloseChat = false] - Whether to wait until the chat is closed before proceeding.
    */
   async show(player: Player, id: number, waitUntilCloseChat?: boolean) {
-    const formId = this.formData?.find((form) => form.id === id);
-    if (!formId) return;
+    const form_id = this.form_data?.find((form) => form.id === id);
+    if (!form_id) return;
 
-    if (formId.type === "action")
-      await this.generateAction(player, formId, waitUntilCloseChat);
-    else if (formId.type === "modal")
-      await this.generateModal(player, formId, waitUntilCloseChat);
-    else if (formId.type === "message")
-      await this.generateMessage(player, formId, waitUntilCloseChat);
-    else if (formId.type === "player_selector")
-      await this.generatePlayerSelector(player, formId, waitUntilCloseChat);
+    if (form_id.type === "action")
+      await this.generateAction(player, form_id, waitUntilCloseChat);
+    else if (form_id.type === "modal")
+      await this.generateModal(player, form_id, waitUntilCloseChat);
+    else if (form_id.type === "message")
+      await this.generateMessage(player, form_id, waitUntilCloseChat);
+    else if (form_id.type === "player_selector")
+      await this.generatePlayerSelector(player, form_id, waitUntilCloseChat);
   }
 
   /**
    * Generates and displays an action form to the player.
    * @param player - The player to show the form to.
-   * @param formData - The data for the action form.
+   * @param form_data - The data for the action form.
    * @param waitUntilCloseChat - Whether to wait until the chat is closed before proceeding.
    */
   private async generateAction(
     player: Player,
-    formData: {
+    form_data: {
       id: number;
       type: "action";
       title?: string;
       body?: string;
       content?: ActionFormContent;
     },
-    waitUntilCloseChat?: boolean
+    waitUntilCloseChat?: boolean,
   ) {
     const form = new ActionFormData();
 
-    if (formData.title) form.title(formData.title);
-    if (formData.body) form.body(formData.body);
+    if (form_data.title) form.title(form_data.title);
+    if (form_data.body) form.body(form_data.body);
 
     let button_idx = 0;
-    while (button_idx < (formData.content?.buttons.length || 0)) {
-      const btn = formData.content?.buttons[button_idx];
+    while (button_idx < (form_data.content?.buttons.length || 0)) {
+      const btn = form_data.content?.buttons[button_idx];
       form.button(btn?.label || "", btn?.icon);
 
       button_idx++;
@@ -102,38 +102,40 @@ export class FormGenerator {
 
     if (waitUntilCloseChat)
       while (true) {
-        await null;
+        await Interval.WaitNextTick();
         /** @ts-ignore */
         const response = await form.show(player);
-        const btnEvent = formData.content?.buttons[response.selection]?.onClick;
+        const button_event =
+          form_data.content?.buttons[response.selection]?.onClick;
 
-        if (response?.cancelationReason !== FormCancelationReason.UserBusy) {
-          if (response.canceled || !btnEvent) return;
-
-          return btnEvent(player);
-        }
+        if (
+          response?.cancelationReason !== FormCancelationReason.UserBusy &&
+          (!response.canceled || button_event)
+        )
+          return button_event(player);
       }
     else {
-      await null;
+      await Interval.WaitNextTick();
       /** @ts-ignore */
       const response = await form.show(player);
-      const btnEvent = formData.content?.buttons[response.selection]?.onClick;
+      const button_event =
+        form_data.content?.buttons[response.selection]?.onClick;
 
-      if (response.canceled || !btnEvent) return;
+      if (response.canceled || !button_event) return;
 
-      btnEvent(player);
+      button_event(player);
     }
   }
 
   /**
    * Generates and displays a modal form to the player.
    * @param player - The player to show the form to.
-   * @param formData - The data for the modal form.
+   * @param form_data - The data for the modal form.
    * @param waitUntilCloseChat - Whether to wait until the chat is closed before proceeding.
    */
   private async generateModal(
     player: Player,
-    formData: {
+    form_data: {
       id: number;
       type: "modal";
       title?: string;
@@ -142,23 +144,23 @@ export class FormGenerator {
         player: Player,
         formResult: {
           [key: number]: string | boolean | number | undefined;
-        }
+        },
       ) => void;
     },
-    waitUntilCloseChat?: boolean
+    waitUntilCloseChat?: boolean,
   ) {
     const form = new ModalFormData();
 
-    if (formData.title) form.title(formData.title);
+    if (form_data.title) form.title(form_data.title);
 
     let content_idx = 0;
-    while (content_idx < (formData.content?.length || 0)) {
-      const content = formData.content?.[content_idx];
+    while (content_idx < (form_data.content?.length || 0)) {
+      const content = form_data.content?.[content_idx];
       if (content?.dropdown)
         form.dropdown(
           content.dropdown.label,
           content.dropdown.data,
-          content.dropdown.defaultDataIndex
+          content.dropdown.defaultDataIndex,
         );
       if (content?.slider)
         form.slider(
@@ -166,14 +168,14 @@ export class FormGenerator {
           content.slider.minValue,
           content.slider.maxValue,
           content.slider.step || 1,
-          content.slider.defaultValue
+          content.slider.defaultValue,
         );
       if (content?.submitButton) form.submitButton(content.submitButton.label);
       if (content?.textField)
         form.textField(
           content.textField.label,
           content.textField.placeholder,
-          content.textField.defaultValue
+          content.textField.defaultValue,
         );
       if (content?.toggle)
         form.toggle(content.toggle.label, content.toggle.defaultValue);
@@ -183,19 +185,20 @@ export class FormGenerator {
 
     if (waitUntilCloseChat)
       while (true) {
-        await null;
+        await Interval.WaitNextTick();
         /** @ts-ignore */
         const response = await form.show(player);
-        if (response?.cancelationReason !== FormCancelationReason.UserBusy) {
-          if (response.canceled || !formData.onSubmit) return;
-
-          const formValues: {
+        if (
+          response?.cancelationReason !== FormCancelationReason.UserBusy &&
+          (!response.canceled || form_data.onSubmit)
+        ) {
+          const form_values: {
             [key: number]: string | number | boolean | undefined;
           } = {};
 
           content_idx = 0;
           while (content_idx < (response.formValues?.length || 0)) {
-            formValues[content_idx] =
+            form_values[content_idx] =
               response.formValues?.[content_idx] === ""
                 ? undefined
                 : response.formValues?.[content_idx];
@@ -203,23 +206,22 @@ export class FormGenerator {
             content_idx++;
           }
 
-          return formData.onSubmit(player, formValues);
+          return form_data.onSubmit(player, form_values);
         }
       }
     else {
-      await null;
+      await Interval.WaitNextTick();
       /** @ts-ignore */
       const response = await form.show(player);
+      if (response.canceled || !form_data.onSubmit) return;
 
-      if (response.canceled || !formData.onSubmit) return;
-
-      const formValues: {
+      const form_values: {
         [key: number]: string | number | boolean | undefined;
       } = {};
 
       content_idx = 0;
       while (content_idx < (response.formValues?.length || 0)) {
-        formValues[content_idx] =
+        form_values[content_idx] =
           response.formValues?.[content_idx] === ""
             ? undefined
             : response.formValues?.[content_idx];
@@ -227,75 +229,76 @@ export class FormGenerator {
         content_idx++;
       }
 
-      formData.onSubmit(player, formValues);
+      form_data.onSubmit(player, form_values);
     }
   }
 
   /**
    * Generates and displays a message form to the player.
    * @param player - The player to show the form to.
-   * @param formData - The data for the message form.
+   * @param form_data - The data for the message form.
    * @param waitUntilCloseChat - Whether to wait until the chat is closed before proceeding.
    */
   private async generateMessage(
     player: Player,
-    formData: {
+    form_data: {
       id: number;
       type: "message";
       title?: string;
       body?: string;
       content?: MessageFormContent;
     },
-    waitUntilCloseChat?: boolean
+    waitUntilCloseChat?: boolean,
   ) {
     const form = new MessageFormData();
 
-    if (formData.title) form.title(formData.title);
-    if (formData.body) form.body(formData.body);
-    if (formData.content?.button1) form.button1(formData.content.button1.label);
-    if (formData.content?.button2) form.button2(formData.content.button2.label);
+    if (form_data.title) form.title(form_data.title);
+    if (form_data.body) form.body(form_data.body);
+    if (form_data.content?.button1)
+      form.button1(form_data.content.button1.label);
+    if (form_data.content?.button2)
+      form.button2(form_data.content.button2.label);
 
-    const buttons = [formData.content?.button1, formData.content?.button2];
+    const buttons = [form_data.content?.button1, form_data.content?.button2];
 
     if (waitUntilCloseChat)
       while (true) {
-        await null;
+        await Interval.WaitNextTick();
         /** @ts-ignore */
         const response = await form.show(player);
 
-        if (response?.cancelationReason !== FormCancelationReason.UserBusy) {
-          if (response.canceled) return;
+        if (
+          response?.cancelationReason !== FormCancelationReason.UserBusy &&
+          !response.canceled
+        ) {
+          const selected_buton = buttons[response.selection];
+          if (!selected_buton.onClick) return;
 
-          const selectedButton = buttons[response.selection];
-
-          if (!selectedButton.onClick) return;
-
-          return selectedButton.onClick(player);
+          return selected_buton.onClick(player);
         }
       }
     else {
-      await null;
+      await Interval.WaitNextTick();
       /** @ts-ignore */
       const response = await form.show(player);
       if (response.canceled) return;
 
-      const selectedButton = buttons[response.selection];
+      const selected_buton = buttons[response.selection];
+      if (!selected_buton?.onClick) return;
 
-      if (!selectedButton?.onClick) return;
-
-      selectedButton.onClick(player);
+      selected_buton.onClick(player);
     }
   }
 
   /**
    * Generates and displays a player selector form to the player.
    * @param player - The player to show the form to.
-   * @param formData - The data for the player selector form.
+   * @param form_data - The data for the player selector form.
    * @param waitUntilCloseChat - Whether to wait until the chat is closed before proceeding.
    */
   private async generatePlayerSelector(
     player: Player,
-    formData: {
+    form_data: {
       id: number;
       type: "player_selector";
       title?: string;
@@ -303,44 +306,44 @@ export class FormGenerator {
       icon?: string;
       onSelect?: (player: Player, selectedPlayer: Player) => void;
     },
-    waitUntilCloseChat?: boolean
+    waitUntilCloseChat?: boolean,
   ) {
     const form = new ActionFormData();
 
-    if (formData.title) form.title(formData.title);
-    if (formData.body) form.body(formData.body);
+    if (form_data.title) form.title(form_data.title);
+    if (form_data.body) form.body(form_data.body);
 
-    const onlinePlayers = [...World.getOnlinePlayers()].sort((a, b) =>
-      a.name.localeCompare(b.name)
+    const online_players = [...World.getOnlinePlayers()].sort((a, b) =>
+      a.name.localeCompare(b.name),
     );
 
     let player_idx = 0;
-    while (player_idx < onlinePlayers.length) {
-      const targetPlayer = onlinePlayers[player_idx];
-      form.button(targetPlayer.name, formData.icon);
+    while (player_idx < online_players.length) {
+      const targetPlayer = online_players[player_idx];
+      form.button(targetPlayer.name, form_data.icon);
       player_idx++;
     }
 
     if (waitUntilCloseChat)
       while (true) {
-        await null;
+        await Interval.WaitNextTick();
         /** @ts-ignore */
         const response = await form.show(player);
 
-        if (response?.cancelationReason !== FormCancelationReason.UserBusy) {
-          if (response.canceled || !formData.onSelect) return;
-
-          return formData.onSelect(player, onlinePlayers[response.selection]);
-        }
+        if (
+          response?.cancelationReason !== FormCancelationReason.UserBusy &&
+          !response.canceled &&
+          form_data.onSelect
+        )
+          return form_data.onSelect(player, online_players[response.selection]);
       }
     else {
-      await null;
+      await Interval.WaitNextTick();
       /** @ts-ignore */
       const response = await form.show(player);
+      if (response.canceled || !form_data.onSelect) return;
 
-      if (response.canceled || !formData.onSelect) return;
-
-      formData.onSelect(player, onlinePlayers[response.selection]);
+      form_data.onSelect(player, online_players[response.selection]);
     }
   }
 }
